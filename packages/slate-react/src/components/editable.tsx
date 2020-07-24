@@ -927,8 +927,7 @@ export const Editable = (props: EditableProps) => {
               (!HAS_BEFORE_INPUT_SUPPORT ||
                 isPlainTextOnlyPaste(event.nativeEvent)) &&
               !readOnly &&
-              hasEditableTarget(editor, event.target) &&
-              !isEventHandled(event, attributes.onPaste)
+              hasEditableTarget(editor, event.target)
             ) {
               event.preventDefault()
               ReactEditor.insertData(editor, event.clipboardData)
