@@ -7,13 +7,19 @@ import {
   Range,
   Text,
   Transforms,
+  Path,
 } from 'slate'
 import throttle from 'lodash/throttle'
 import scrollIntoView from 'scroll-into-view-if-needed'
 
 import Children from './children'
 import Hotkeys from '../utils/hotkeys'
-import { IS_FIREFOX, IS_SAFARI, IS_EDGE_LEGACY } from '../utils/environment'
+import {
+  IS_FIREFOX,
+  IS_SAFARI,
+  IS_EDGE_LEGACY,
+  IS_CHROME_LEGACY,
+} from '../utils/environment'
 import { ReactEditor } from '..'
 import { ReadOnlyContext } from '../hooks/use-read-only'
 import { useSlate } from '../hooks/use-slate'
@@ -38,7 +44,12 @@ import {
 } from '../utils/weak-maps'
 
 // COMPAT: Firefox/Edge Legacy don't support the `beforeinput` event
-const HAS_BEFORE_INPUT_SUPPORT = !(IS_FIREFOX || IS_EDGE_LEGACY)
+// Chrome Legacy doesn't support `beforeinput` correctly
+const HAS_BEFORE_INPUT_SUPPORT = !(
+  IS_FIREFOX ||
+  IS_EDGE_LEGACY ||
+  IS_CHROME_LEGACY
+)
 
 /**
  * `RenderElementProps` are passed to the `renderElement` handler.
@@ -175,7 +186,10 @@ export const Editable = (props: EditableProps) => {
     if (newDomRange) {
       domSelection.addRange(newDomRange!)
       const leafEl = newDomRange.startContainer.parentElement!
-      scrollIntoView(leafEl, { scrollMode: 'if-needed' })
+      scrollIntoView(leafEl, {
+        scrollMode: 'if-needed',
+        boundary: el,
+      })
     }
 
     setTimeout(() => {
@@ -343,13 +357,13 @@ export const Editable = (props: EditableProps) => {
   // real `beforeinput` events sadly... (2019/11/04)
   // https://github.com/facebook/react/issues/11211
   useIsomorphicLayoutEffect(() => {
-    if (ref.current) {
+    if (ref.current && HAS_BEFORE_INPUT_SUPPORT) {
       // @ts-ignore The `beforeinput` event isn't recognized.
       ref.current.addEventListener('beforeinput', onDOMBeforeInput)
     }
 
     return () => {
-      if (ref.current) {
+      if (ref.current && HAS_BEFORE_INPUT_SUPPORT) {
         // @ts-ignore The `beforeinput` event isn't recognized.
         ref.current.removeEventListener('beforeinput', onDOMBeforeInput)
       }
@@ -554,8 +568,16 @@ export const Editable = (props: EditableProps) => {
               const node = ReactEditor.toSlateNode(editor, event.target)
               const path = ReactEditor.findPath(editor, node)
               const start = Editor.start(editor, path)
+              const end = Editor.end(editor, path)
 
-              if (Editor.void(editor, { at: start })) {
+              const startVoid = Editor.void(editor, { at: start })
+              const endVoid = Editor.void(editor, { at: end })
+
+              if (
+                startVoid &&
+                endVoid &&
+                Path.equals(startVoid[1], endVoid[1])
+              ) {
                 const range = Editor.range(editor, start)
                 Transforms.select(editor, range)
               }
@@ -924,11 +946,11 @@ export const Editable = (props: EditableProps) => {
             // when "paste without formatting" option is used.
             // This unfortunately needs to be handled with paste events instead.
             if (
+              hasEditableTarget(editor, event.target) &&
+              !isEventHandled(event, attributes.onPaste) &&
               (!HAS_BEFORE_INPUT_SUPPORT ||
                 isPlainTextOnlyPaste(event.nativeEvent)) &&
-              !readOnly &&
-              hasEditableTarget(editor, event.target) &&
-              !isEventHandled(event, attributes.onPaste)
+              !readOnly
             ) {
               event.preventDefault()
               ReactEditor.insertData(editor, event.clipboardData)
