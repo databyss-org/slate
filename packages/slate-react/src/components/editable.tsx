@@ -924,6 +924,7 @@ export const Editable = (props: EditableProps) => {
             // when "paste without formatting" option is used.
             // This unfortunately needs to be handled with paste events instead.
             if (
+              !isEventHandled(event, attributes.onPaste) &&
               (!HAS_BEFORE_INPUT_SUPPORT ||
                 isPlainTextOnlyPaste(event.nativeEvent)) &&
               !readOnly &&
