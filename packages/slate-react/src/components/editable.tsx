@@ -146,9 +146,11 @@ export const Editable = (props: EditableProps) => {
     }
 
     // If the DOM selection is already correct, we're done.
+    // @databyss mod: only do this if selection is expanded
     if (
       hasDomSelection &&
       selection &&
+      Range.isExpanded(selection) &&
       Range.equals(ReactEditor.toSlateRange(editor, domSelection), selection)
     ) {
       return
