@@ -166,7 +166,13 @@ export const Editable = (props: EditableProps) => {
     if (newDomRange) {
       domSelection.addRange(newDomRange!)
       const leafEl = newDomRange.startContainer.parentElement!
-      scrollIntoView(leafEl, { scrollMode: 'if-needed' })
+      // BEGIN PATCH
+      // from https://github.com/ianstormtaylor/slate/pull/3678/files
+      scrollIntoView(leafEl, {
+        scrollMode: 'if-needed',
+        boundary: el,
+      })
+      // END PATCH
     }
 
     setTimeout(() => {

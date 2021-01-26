@@ -1,5 +1,6 @@
 {
-  "name": "slate",
+  "name": "@databyss-org/slate",
+  "path": "slate",
   "description": "A completely customizable framework for building rich text editors.",
   "version": "0.57.2",
   "license": "MIT",

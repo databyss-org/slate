@@ -1,6 +1,7 @@
 {
   "name": "@databyss-org/slate-react",
-  "version": "0.57.2-b4",
+  "path": "slate-react",
+  "version": "0.57.2-b5",
   "description": "Tools for building completely customizable richtext editors with React.",
   "license": "MIT",
   "repository": "git://github.com/ianstormtaylor/slate.git",
