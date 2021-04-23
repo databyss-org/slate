@@ -80,10 +80,10 @@
     "rollup-plugin-terser": "^5.1.2",
     "rollup-plugin-typescript2": "^0.25.2",
     "rollup-plugin-uglify": "^6.0.3",
-    "slate": "*",
-    "slate-history": "*",
-    "slate-hyperscript": "*",
-    "slate-react": "*",
+    "slate": "0.57.2",
+    "slate-history": "0.57.2",
+    "slate-hyperscript": "0.57.2",
+    "slate-react": "0.57.2",
     "source-map-loader": "^0.2.4",
     "typescript": "^3.7.2"
   }

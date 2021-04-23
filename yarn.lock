@@ -9554,10 +9554,10 @@ slash@^2.0.0:
   resolved "https://registry.yarnpkg.com/slash/-/slash-2.0.0.tgz#de552851a1759df3a8f206535442f5ec4ddeab44"
   integrity sha512-ZYKh3Wh2z1PpEXWr0MpSBZ0V6mZHAQfYevttO11c51CaWjGTaadiKZ+wVt1PbMlDV5qhMFslpZCemhwOK7C89A==
 
-slate-react@*:
-  version "0.58.4"
-  resolved "https://registry.yarnpkg.com/slate-react/-/slate-react-0.58.4.tgz#ecde34dd322af8413c2f23f0f0a577fed2422f46"
-  integrity sha512-3JXWHVPmYrR/EMcH1qtmwXZtYxxCtuokQg+r/4wD1Ab9J3zRmW4UGLoaRP9/uQrZOAOvr8mMh4IgmrxV2dQskw==
+slate-react@0.57.2:
+  version "0.57.2"
+  resolved "https://registry.yarnpkg.com/slate-react/-/slate-react-0.57.2.tgz#0045258aaf0007a05f96aa09988b9a6152fdb76d"
+  integrity sha512-fg91E7XISMnFfoHB8vPbbaKoTDpaTfE+iwnG9i6EzbIfwNysz8XvLDpRW3XExm1ZtAfhEKB3Um8nPMtGaugVRg==
   dependencies:
     "@types/is-hotkey" "^0.1.1"
     "@types/lodash" "^4.14.149"
@@ -9566,6 +9566,17 @@ slate-react@*:
     is-plain-object "^3.0.0"
     lodash "^4.17.4"
     scroll-into-view-if-needed "^2.2.20"
+
+slate@0.57.2:
+  version "0.57.2"
+  resolved "https://registry.yarnpkg.com/slate/-/slate-0.57.2.tgz#f45fb7a4b767c7a7a3b93365c3a446049d947f3e"
+  integrity sha512-qxx9iwNmN3fn13hPbwh1p65aNLCgpHMMK/XXLX7rBVv+GT2UFys9tU8OK6FyUF/lU2uEJ++sScDu8cHjzwLefw==
+  dependencies:
+    "@types/esrever" "^0.2.0"
+    esrever "^0.2.0"
+    immer "^5.0.0"
+    is-plain-object "^3.0.0"
+    tiny-warning "^1.0.3"
 
 slice-ansi@^2.1.0:
   version "2.1.0"

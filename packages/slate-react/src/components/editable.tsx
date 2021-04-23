@@ -168,10 +168,15 @@ export const Editable = (props: EditableProps) => {
       const leafEl = newDomRange.startContainer.parentElement!
       // BEGIN PATCH
       // from https://github.com/ianstormtaylor/slate/pull/3678/files
+      // and https://github.com/ianstormtaylor/slate/commit/f8be509e4d0b5c13bb791e0fd5702242319d114f
+      leafEl.getBoundingClientRect = newDomRange.getBoundingClientRect.bind(
+        newDomRange
+      )
       scrollIntoView(leafEl, {
         scrollMode: 'if-needed',
         boundary: el,
       })
+      delete leafEl.getBoundingClientRect
       // END PATCH
     }
 

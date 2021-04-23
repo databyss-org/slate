@@ -1,7 +1,7 @@
 {
   "name": "@databyss-org/slate-react",
   "path": "slate-react",
-  "version": "0.57.2-b5",
+  "version": "0.57.2-b6",
   "description": "Tools for building completely customizable richtext editors with React.",
   "license": "MIT",
   "repository": "git://github.com/ianstormtaylor/slate.git",
@@ -24,8 +24,8 @@
     "scroll-into-view-if-needed": "^2.2.20"
   },
   "devDependencies": {
-    "slate": "^0.57.2",
-    "slate-hyperscript": "^0.57.2"
+    "slate": "0.57.2",
+    "slate-hyperscript": "0.57.2"
   },
   "peerDependencies": {
     "react": ">=16.8.0",
